@@ -1,1 +1,3 @@
 # Ocupado
+
+Ocupado is a web-based system that is intended to manage space occupation in various establishments (schools, universities, hotels, etc.). It provides a map for each registered establishment's rooms and their current occupation status. The system's main features also include the requisition of an avaliable room, custom filtering in terms of room searching, alerting if a reserved room is occupied at any given moment.
