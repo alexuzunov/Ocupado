@@ -1,0 +1,7 @@
+.Homepage {
+   background-image: url('../img/bgImg.jpg');
+   background-repeat: no-repeat;
+    background-size:cover;
+    background-position: center;
+    min-height: 620px;
+}
