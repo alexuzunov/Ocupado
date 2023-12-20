@@ -1,39 +1,67 @@
+import { useState } from "react"; 
 
+import axios from 'axios';
 import '../assets/css/Login.css';
 
 function Login() {
-  return (
-    <div className='Login'>
-      <div class="banner-bg">
-      <h1> OCUPADO </h1>
-       <div class="form-container">
-                        <div class="form-header">
-                            <p>Login to your account</p>
-                        </div>
-                        <div class="form-group">
-                            <form>
-                                
-                                <div class="form-input">
-                                    <input type="email" placeholder="Email" />
-                                </div>
-                                <div class="form-input">
-                                    <input type="password" placeholder="Password" />
-                                </div>
-                                
-                            </form>
-                            <p> Don't have an account? <a href='/register'>Sign up!</a> </p>
-                        </div>
-                        <div class="form-submit">
-                            <button>
-                                Login
-                            </button>
-                        </div>
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
+    const handleClick = async (e) => {
+        e.preventDefault();
+
+        const result = await axios.post(`${process.env.REACT_APP_SERVER_URL}/login`, 
+        {
+            email: email,
+            password: password,
+        }, 
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (result.data.error) {
+            setError(result.data.error);
+
+            return;
+        }
+
+        localStorage.setItem("accessToken", result.data.accessToken);
+
+        if (error) setError("");
+    }
+
+    return (
+        <div className='Login'>
+            <div className="banner-bg">
+                <h1> OCUPADO </h1>
+                <div className="form-container">
+                    <div className="form-header">
+                        <p>Login to your account</p>
                     </div>
-      </div>
-     
-     
-     </div> 
-  );
+                    <div className="form-group">
+                        <form>            
+                            <div className="form-input">
+                                <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+                            </div>
+                            <div className="form-input">
+                                <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                            </div>        
+                        </form>
+                        { error && <p>{error}</p> }
+                        <p> Don't have an account? <a href='/register'>Sign up!</a> </p>
+                    </div>
+                    <div className="form-submit">
+                        <button onClick={handleClick} >
+                            Login
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    );
 }
 
 export default Login;
