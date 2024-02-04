@@ -1,9 +1,10 @@
-import { useState } from "react"; 
+import { useState } from "react";
+import { redirect } from "react-router-dom";
 
 import axios from 'axios';
 import '../assets/css/Login.css';
 
-function Login() {
+const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -31,33 +32,32 @@ function Login() {
         localStorage.setItem("accessToken", result.data.accessToken);
 
         if (error) setError("");
+
+        return redirect("/");
     }
 
     return (
         <div className='Login'>
-            <div className="banner-bg">
-                <h1> OCUPADO </h1>
-                <div className="form-container">
-                    <div className="form-header">
-                        <p>Login to your account</p>
-                    </div>
-                    <div className="form-group">
-                        <form>            
-                            <div className="form-input">
-                                <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-                            </div>
-                            <div className="form-input">
-                                <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-                            </div>        
-                        </form>
-                        { error && <p>{error}</p> }
-                        <p> Don't have an account? <a href='/register'>Sign up!</a> </p>
-                    </div>
-                    <div className="form-submit">
-                        <button onClick={handleClick} >
-                            Login
-                        </button>
-                    </div>
+            <div className="form-container">
+                <div className="form-header">
+                    <p>Login to your account</p>
+                </div>
+                <div className="form-group">
+                    <form>            
+                        <div className="form-input">
+                            <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+                        </div>
+                        <div className="form-input">
+                            <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                        </div>        
+                    </form>
+                    { error && <p>{error}</p> }
+                    <p> Don't have an account? <a href='/register'>Sign up!</a> </p>
+                </div>
+                <div className="form-submit">
+                    <button onClick={handleClick} >
+                        Login
+                    </button>
                 </div>
             </div>
         </div> 
