@@ -34,8 +34,10 @@ const D3Map = () => {
           .enter()
           .append("path")
           .attr("d", path)
+          .style("fill", "green")
           .style("stroke", "white")
-          .style("stroke-width", 0.5);
+          .style("stroke-width", 0.5)
+          .on("click", handleClick);
       } catch (error) {
         console.error("Error fetching or rendering GeoJSON data:", error);
       }
@@ -43,6 +45,13 @@ const D3Map = () => {
 
     fetchData();
   }, []);
+
+  const handleClick = (event, feature) => {
+    // You can access the clicked feature and perform actions here
+    console.log("Clicked on feature:", feature.properties.name);
+
+    d3.select(event.target).style("fill", "red");
+  };
 
   return (
     <svg
