@@ -20,8 +20,8 @@ const D3Map = () => {
 
         const data = await response.json();
 
-        const width = 800;
-        const height = 500;
+        const width = 1200;
+        const height = 800;
 
         const svg = d3.select(svgRef.current);
 
@@ -38,6 +38,25 @@ const D3Map = () => {
           .style("stroke", "white")
           .style("stroke-width", 0.5)
           .on("click", handleClick);
+
+        svg.attr('transform',function(){
+          var me = svg.node()
+          var x1 = me.getBBox().x + me.getBBox().width/2;//the center x about which you want to rotate
+          var y1 = me.getBBox().y + me.getBBox().height/2;//the center y about which you want to rotate
+
+          return `rotate(25, ${x1}, ${y1})`;//rotate 180 degrees about x and y
+        }); 
+
+        svg
+          .selectAll("text")
+          .data(data.features)
+          .enter()
+          .append("text")
+          .attr("transform", (d) => {
+            const centroid = path.centroid(d.geometry);
+            return `translate(${centroid[0]}, ${centroid[1]}) rotate(-25)`;
+          })
+          .text((d) => d.properties.name);
       } catch (error) {
         console.error("Error fetching or rendering GeoJSON data:", error);
       }
@@ -56,8 +75,8 @@ const D3Map = () => {
   return (
     <svg
       ref={svgRef}
-      width={800}
-      height={500}
+      width={1200}
+      height={800}
       style={{ border: "1px solid black" }}
     ></svg>
   );
