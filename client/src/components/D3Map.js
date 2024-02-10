@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { geoPath, geoMercator } from "d3-geo";
 
+import "../assets/css/Map.css";
+
 const D3Map = () => {
   const svgRef = useRef();
 
@@ -39,23 +41,25 @@ const D3Map = () => {
           .style("stroke-width", 0.5)
           .on("click", handleClick);
 
-        svg.attr('transform',function(){
-          var me = svg.node()
-          var x1 = me.getBBox().x + me.getBBox().width/2;//the center x about which you want to rotate
-          var y1 = me.getBBox().y + me.getBBox().height/2;//the center y about which you want to rotate
+        svg.attr("transform", function () {
+          var me = svg.node();
+          var x1 = me.getBBox().x + me.getBBox().width / 2; //the center x about which you want to rotate
+          var y1 = me.getBBox().y + me.getBBox().height / 2; //the center y about which you want to rotate
 
-          return `rotate(25, ${x1}, ${y1})`;//rotate 180 degrees about x and y
-        }); 
+          return `rotate(26, ${x1}, ${y1})`; //rotate 180 degrees about x and y
+        });
 
         svg
           .selectAll("text")
           .data(data.features)
           .enter()
           .append("text")
+          .attr("text-anchor", "middle")
           .attr("transform", (d) => {
             const centroid = path.centroid(d.geometry);
-            return `translate(${centroid[0]}, ${centroid[1]}) rotate(-25)`;
+            return `translate(${centroid[0]}, ${centroid[1]}) rotate(-26)`;
           })
+          .style("font-size", "10px")
           .text((d) => d.properties.name);
       } catch (error) {
         console.error("Error fetching or rendering GeoJSON data:", error);
@@ -66,19 +70,23 @@ const D3Map = () => {
   }, []);
 
   const handleClick = (event, feature) => {
-    // You can access the clicked feature and perform actions here
     console.log("Clicked on feature:", feature.properties.name);
 
     d3.select(event.target).style("fill", "red");
   };
 
   return (
-    <svg
-      ref={svgRef}
-      width={1200}
-      height={800}
-      style={{ border: "1px solid black" }}
-    ></svg>
+    <div className="mapPage">
+      <div className="Info">
+        <h1>FMI : Second Floor</h1>
+        <h2>Select date and time:</h2>
+        <input type="datetime-local" />
+      </div>
+
+      <br />
+
+      <svg className="Map" ref={svgRef} width={1200} height={800}></svg>
+    </div>
   );
 };
 
