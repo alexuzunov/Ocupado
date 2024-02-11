@@ -1,23 +1,23 @@
 const mongoose = require("mongoose");
 
-const floorSchema = mongoose.Schema({
-    number: {
-        type: Number,
+const roomSchema = mongoose.Schema({
+    name: {
+        type: String,
         required: true
     },
-    map: {
-        type: Object,
+    reservable: {
+        type: Boolean,
         required: true
     },
-    facility: {
+    floor: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Facility',
+        ref: 'Floor',
         required: true
     },
-    rooms: [
+    reservations: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Room'
+            ref: 'Reservation'
         }
     ]
 });

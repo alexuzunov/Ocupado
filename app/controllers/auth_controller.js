@@ -32,7 +32,7 @@ exports.register = async (req, res, next) => {
         const result = await user.save();
 
         if (result) {
-            const accessToken = await jwt.sign({ email: result.email }, process.env.JWT_SECRET_KEY, { expiresIn: '4h' });
+            const accessToken = await jwt.sign({ id: result._id }, process.env.JWT_SECRET_KEY, { expiresIn: '4h' });
         
             res.status(201).json({ accessToken: accessToken, user: result });
             return;
@@ -54,7 +54,7 @@ exports.login = async (req, res, next) => {
         const result = await bcrypt.compare(password, user.password);
 
         if (result) {
-            const accessToken = await jwt.sign({ email: result.email }, process.env.JWT_SECRET_KEY, { expiresIn: '4h' });
+            const accessToken = await jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '4h' });
 
             res.status(200).json({ accessToken: accessToken, user: user });
             return;

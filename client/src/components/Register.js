@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import axios from 'axios';
 import '../assets/css/Register.css';
 
 const Register = () => {
+    const navigate = useNavigate();
+
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -36,10 +38,11 @@ const Register = () => {
         }
 
         localStorage.setItem("accessToken", result.data.accessToken);
+        localStorage.setItem("user", JSON.stringify(result.data.user));
         
         if (error) setError("");
 
-        return redirect("/");
+        navigate("/");
     }
 
     return (
