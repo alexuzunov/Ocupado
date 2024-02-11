@@ -1,35 +1,27 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Logout from "./components/Logout";
 import Homepage from "./components/Homepage";
 import D3Map from "./components/D3Map";
 import NavigationBar from "./components/NavigationBar";
-import { useEffect, useState } from "react";
+import AuthContextProvider from "./contexts/AuthContext";
 
 export default function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    useEffect(() => {
-        const accessToken = localStorage.getItem("accessToken");
-
-        if (accessToken) {
-            setIsLoggedIn(true);
-        } else {
-            setIsLoggedIn(false);
-        }
-    }, []);
-
     return (
         <>
-            <BrowserRouter>
-                <NavigationBar isLoggedIn={isLoggedIn} />
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/" element={<Homepage />} />
-                    <Route path="/map" element={<D3Map />} />
-                </Routes>
-            </BrowserRouter>
+            <AuthContextProvider>
+                <BrowserRouter>
+                    <NavigationBar />
+                    <Routes>
+                        <Route exact path="/login" element={<Login />} />
+                        <Route exact path="/register" element={<Register />} />
+                        <Route exact path="/logout" element={<Logout />} />
+                        <Route exact path="/" element={<Homepage />} />
+                        <Route exact path="/map" element={<D3Map />} />
+                    </Routes>
+                </BrowserRouter>
+            </AuthContextProvider>
         </>
     );
 }

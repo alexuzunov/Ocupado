@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import '../assets/css/Register.css';
 
+import { useAuth } from "../contexts/AuthContext";
+
 const Register = () => {
     const navigate = useNavigate();
+    const { setUser } = useAuth();
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -37,8 +40,12 @@ const Register = () => {
             return;
         }
 
+        const user = { firstName: result.data.user.firstName, lastName: result.data.user.lastName, email: result.data.user.email };
+
         localStorage.setItem("accessToken", result.data.accessToken);
-        localStorage.setItem("user", JSON.stringify(result.data.user));
+        localStorage.setItem("user", JSON.stringify(user));
+
+        setUser(user);
         
         if (error) setError("");
 

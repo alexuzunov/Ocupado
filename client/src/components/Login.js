@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import '../assets/css/Login.css';
 
+import { useAuth } from "../contexts/AuthContext";
+
 const Login = () => {
     const navigate = useNavigate();
+    const { setUser } = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -31,8 +34,12 @@ const Login = () => {
             return;
         }
 
+        const user = { firstName: result.data.user.firstName, lastName: result.data.user.lastName, email: result.data.user.email };
+
         localStorage.setItem("accessToken", result.data.accessToken);
-        localStorage.setItem("user", result.data.user);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        setUser(user);
 
         if (error) setError("");
 
