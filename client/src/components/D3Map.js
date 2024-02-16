@@ -70,7 +70,7 @@ const D3Map = () => {
   }, []);
 
   const handleClick = (event, feature) => {
-    console.log("Clicked on feature:", feature.properties.name);
+    console.log("Clicked on room:", feature.properties.name);
 
     d3.select(event.target).style("fill", "red");
   };
@@ -78,9 +78,17 @@ const D3Map = () => {
   return (
     <div className="mapPage">
       <div className="Info">
-        <h1>FMI : Second Floor</h1>
         <h2>Select date and time:</h2>
         <input type="datetime-local" />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <h1>FMI : Second Floor</h1>
       </div>
 
       <br />
