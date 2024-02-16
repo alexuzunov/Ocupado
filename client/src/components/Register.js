@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 import axios from 'axios';
 import '../assets/css/Register.css';
@@ -8,7 +8,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const Register = () => {
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { currentData, set } = useAuth();
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -16,6 +16,10 @@ const Register = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
+
+    if (currentData) {
+        return <Navigate to="/" replace />; 
+    }
 
     const handleClick = async (e) => {
         e.preventDefault();
@@ -42,7 +46,7 @@ const Register = () => {
 
         const data = { id: result.data.user._id, accessToken: result.data.accessToken, firstName: result.data.user.firstName, lastName: result.data.user.lastName, email: result.data.user.email };
 
-        login(data);
+        set(data);
         
         if (error) setError("");
 

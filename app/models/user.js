@@ -16,7 +16,19 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    facilities: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Facility'
+        }
+    ],
+    reservations: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Reservation'
+        }
+    ]
 });
 
 const User = mongoose.model('User', userSchema);

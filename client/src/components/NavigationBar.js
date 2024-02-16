@@ -12,7 +12,16 @@ const NavigationBar = () => {
             {currentData ? 
                 (   
                 <Nav className="ms-auto">
-                    <Nav.Link href="/logout">Logout</Nav.Link>
+                    <div class="dropdown">
+                        <div class="border-0" id="menu" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="/default.png" style={{ width: 85, height: 50}} />
+                        </div>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menu">
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#">My Facilities</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        </ul>
+                    </div>
                 </Nav>
                 ) :
                 (
