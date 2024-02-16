@@ -10,7 +10,7 @@ const Homepage = () => {
   const { currentData } = useAuth();
 
   return (
-    <Homepage bg="light" data-bs-theme="light" className="fs-4 px-5">
+    <>
       {currentData ? (
         <div className="Homepage">
           <h1>Welcome! Which room are you looking for?</h1>
@@ -27,12 +27,12 @@ const Homepage = () => {
       ) : (
         <div className="Homepage">
           <h1>Welcome! Reserve your room now?</h1>
-          <h2>To reserve room, you first need to login!</h2>
+          <h2>To reserve a room, you first need to login!</h2>
           <button>Register</button>
           <button>I already have an account</button>
         </div>
       )}
-    </Homepage>
+    </>
   );
 };
 

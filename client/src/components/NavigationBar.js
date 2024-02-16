@@ -17,8 +17,9 @@ const NavigationBar = () => {
                             <img src="/default.png" style={{ width: 85, height: 50}} />
                         </div>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menu">
-                            <li><a class="dropdown-item" href="#">My Profile</a></li>
-                            <li><a class="dropdown-item" href="#">My Facilities</a></li>
+                            <li><a class="dropdown-item" href="/profile">My Profile</a></li>
+                            <li><a class="dropdown-item" href="/facilities">My Facilities</a></li>
+                            <li><a class="dropdown-item" href="/facility/create">Create A Facility</a></li>
                             <li><a class="dropdown-item" href="/logout">Logout</a></li>
                         </ul>
                     </div>

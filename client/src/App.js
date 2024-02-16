@@ -7,6 +7,7 @@ import D3Map from "./components/D3Map";
 import NavigationBar from "./components/NavigationBar";
 import AuthContextProvider from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import FacilityForm from "./components/FacilityForm";
 
 export default function App() {
     return (
@@ -18,6 +19,7 @@ export default function App() {
                         <Route exact path="/login" element={<Login />} />
                         <Route exact path="/register" element={<Register />} />
                         <Route exact path="/logout" element={<Logout />} />
+                        <Route exact path="/facility/create" element={<ProtectedRoute><FacilityForm /></ProtectedRoute>} />
                         <Route exact path="/" element={<Homepage />} />
                         <Route exact path="/map" element={<ProtectedRoute><D3Map /></ProtectedRoute>} />
                     </Routes>
