@@ -4,12 +4,12 @@ import Navbar from 'react-bootstrap/Navbar';
 import { useAuth } from "../contexts/AuthContext";
 
 const NavigationBar = () => {
-    const { currentUser } = useAuth();
+    const { currentData } = useAuth();
 
     return (
         <Navbar bg="light" data-bs-theme="light" className="fs-4 px-5">
             <Navbar.Brand className="" href="/"><span class="mb-0 h1">Ocupado</span></Navbar.Brand>
-            {currentUser ? 
+            {currentData ? 
                 (   
                 <Nav className="ms-auto">
                     <Nav.Link href="/logout">Logout</Nav.Link>

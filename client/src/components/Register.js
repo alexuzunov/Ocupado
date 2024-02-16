@@ -8,7 +8,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 const Register = () => {
     const navigate = useNavigate();
-    const { setUser } = useAuth();
+    const { login } = useAuth();
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -40,12 +40,9 @@ const Register = () => {
             return;
         }
 
-        const user = { firstName: result.data.user.firstName, lastName: result.data.user.lastName, email: result.data.user.email };
+        const data = { id: result.data.user._id, accessToken: result.data.accessToken, firstName: result.data.user.firstName, lastName: result.data.user.lastName, email: result.data.user.email };
 
-        localStorage.setItem("accessToken", result.data.accessToken);
-        localStorage.setItem("user", JSON.stringify(user));
-
-        setUser(user);
+        login(data);
         
         if (error) setError("");
 
