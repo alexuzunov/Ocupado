@@ -3,11 +3,12 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Logout from "./components/Logout";
 import Homepage from "./components/Homepage";
-import D3Map from "./components/D3Map";
+import Map from "./components/Map";
 import NavigationBar from "./components/NavigationBar";
 import AuthContextProvider from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import FacilityForm from "./components/FacilityForm";
+import MyFacilities from "./components/MyFacilities";
 
 export default function App() {
     return (
@@ -20,8 +21,9 @@ export default function App() {
                         <Route exact path="/register" element={<Register />} />
                         <Route exact path="/logout" element={<Logout />} />
                         <Route exact path="/facility/create" element={<ProtectedRoute><FacilityForm /></ProtectedRoute>} />
+                        <Route exact path="/profile/facilities" element={<ProtectedRoute><MyFacilities /></ProtectedRoute>} />
                         <Route exact path="/" element={<Homepage />} />
-                        <Route exact path="/map" element={<ProtectedRoute><D3Map /></ProtectedRoute>} />
+                        <Route exact path="/map" element={<ProtectedRoute><Map /></ProtectedRoute>} />
                     </Routes>
                 </BrowserRouter>
             </AuthContextProvider>

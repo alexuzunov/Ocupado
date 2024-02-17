@@ -1,11 +1,17 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { geoPath, geoMercator } from "d3-geo";
+import Modal from "react-bootstrap/Modal";
 
 import "../assets/css/Map.css";
 
-const D3Map = () => {
+const Map = () => {
   const svgRef = useRef();
+  const [modalData, setModalData] = useState({ show: false, room: null });
+
+  const handleClose = () => {
+    setModalData({ show: false, room: null });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,31 +77,59 @@ const D3Map = () => {
 
   const handleClick = (event, feature) => {
     console.log("Clicked on room:", feature.properties.name);
+    setModalData({ show: true, room: feature.properties.name });
 
-    d3.select(event.target).style("fill", "red");
+    // d3.select(event.target).style("fill", "red");
   };
 
   return (
-    <div className="mapPage">
-      <div className="Info">
-        <h2>Select date and time:</h2>
-        <input type="datetime-local" />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+    <>
+      <div className="mapPage">
+        <div className="Info">
+          <h2>Select date and time:</h2>
+          <input type="datetime-local" />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+
+          <h1>FMI : Second Floor</h1>
+        </div>
+
         <br />
 
-        <h1>FMI : Second Floor</h1>
+        <svg className="Map" ref={svgRef} width={1200} height={800}></svg>
       </div>
 
-      <br />
-
-      <svg className="Map" ref={svgRef} width={1200} height={800}></svg>
-    </div>
+      <Modal show={modalData.show} size="lg" aria-labelledby="contained-modal-title-vcenter" centered onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">Create A Reservation For Room {modalData.room}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <form>
+              <div class="row">
+                <div class="col">
+                  <label for="start">Starts At</label>
+                  <input type="datetime-local" id="start" class="form-control" placeholder="First name" />
+                </div>
+                <div class="col">
+                  <label for="end">Ends At</label>
+                  <input type="datetime-local" id="end" class="form-control" placeholder="Last name" />
+                </div>
+              </div>
+            </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <button class="btn btn-primary" onClick={handleClose}>
+            Create
+          </button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 
-export default D3Map;
+export default Map;

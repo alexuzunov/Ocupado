@@ -3,6 +3,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 
 import axios from 'axios';
 import '../assets/css/Register.css';
+import { useAuth } from "../contexts/AuthContext";
 
 const types = [
     "University",
@@ -12,6 +13,9 @@ const types = [
 
 const FacilityForm = () => {
     const navigate = useNavigate();
+
+    const { currentData } = useAuth();
+    const data = JSON.parse(currentData);
 
     const [name, setName] = useState("");
     const [type, setType] = useState("Hospital");
@@ -34,8 +38,23 @@ const FacilityForm = () => {
     }
 
     const handleClick = async (e) => {
-        
-    }
+        e.preventDefault();
+
+        const result = await axios.post(`${process.env.REACT_APP_SERVER_URL}/facilities`, 
+        {
+            name: name,
+            type: type,
+            creator: data.id
+        }, 
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${data.accessToken}`
+            }
+        });
+
+        navigate("/");
+    }  
 
     return (
         <div className='Register'>
